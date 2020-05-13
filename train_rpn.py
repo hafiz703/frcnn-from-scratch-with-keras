@@ -25,9 +25,9 @@ from keras.utils import generic_utils
 if 'tensorflow' == K.backend():
     import tensorflow as tf
 from keras.backend.tensorflow_backend import set_session
-config2 = tf.ConfigProto()
+config2 = tf.compat.v1.ConfigProto()
 config2.gpu_options.allow_growth = True
-set_session(tf.Session(config=config2))
+# set_session(tf.Session(config=config2))
 
 # command arg example
 #--network mobilenetv1 -o simple -p ../../datasets/small_kitti_obj/kitti_train.txt
@@ -162,8 +162,8 @@ print('Num train samples {}'.format(len(train_imgs)))
 print('Num val samples {}'.format(len(val_imgs)))
 
 
-data_gen_train = data_generators.get_anchor_gt(train_imgs, classes_count, C, nn.get_img_output_length, K.image_dim_ordering(), mode='train')
-data_gen_val = data_generators.get_anchor_gt(val_imgs, classes_count, C, nn.get_img_output_length,K.image_dim_ordering(), mode='val')
+data_gen_train = data_generators.get_anchor_gt(train_imgs, classes_count, C, nn.get_img_output_length, K.common.image_dim_ordering(), mode='train')
+data_gen_val = data_generators.get_anchor_gt(val_imgs, classes_count, C, nn.get_img_output_length,K.common.image_dim_ordering(), mode='val')
 
 # set input shape
 input_shape_img = (None, None, 3)
